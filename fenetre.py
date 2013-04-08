@@ -31,7 +31,7 @@ import math
 
 username=getpass.getuser()
 
-mypath=os.path.expanduser(os.path.join("~","Dropbox","Macros_Lisa","Code_VRD"))
+mypath=os.path.expanduser(os.path.join("~","Dropbox","MacrosDropBox","py","VRD"))
 sys.path.append(mypath)
 
 from ListeImage import ListeImage

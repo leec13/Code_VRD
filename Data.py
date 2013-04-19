@@ -8,7 +8,7 @@ import getpass
 
 username=getpass.getuser()
 
-mypath=os.path.expanduser(os.path.join("~","Dropbox","Macros_Lisa","Code_VRD"))
+mypath=os.path.expanduser(os.path.join("~","Dropbox","MacrosDropBox","py","VRD"))
 sys.path.append(mypath)
 
 from org.python.core import codecs
@@ -43,7 +43,8 @@ class Data(object):
 		if self.__getdicoText() == "erreur dossiers" : return "erreur dossiers"
 		else : 	self.__dicoText = self.__getdicoText() # dans la fonction run, remplir le dictionnaire si il n'y pas "erreur dossiers"
 		
-		if self.__GenerateTitre() == "erreur dans les colonnes" : "erreur dans les colonnes"
+		if self.__GenerateTitre() == "erreur dans les colonnes" : return "erreur dans les colonnes"
+		else : pass
 
 		if self.__getdicoGene() == "erreur dossiers" : return "erreur dossiers"
 		else : self.__dicoGene = self.__getdicoGene()
@@ -173,63 +174,88 @@ class Data(object):
 	def __GenerateTitre(self): # création de constantes qui seront fixes, pour pas appeler à chaque fois le numéro de la colonne qui nous interesse
 		dicolignes = self.getdicolignes(self.__listeboites[0])
 		titre=dicolignes[0]
-		for i in range(len(titre)):
+#		print titre
+#		for v in titre : print v
+		for i in range(0,len(titre)):
+#			print i
 			if titre[i]=="Jobrun Folder": 
-				self.COL_FOLDER = i 
+				self.COL_FOLDER = i
+				print i,  "Jobrun Folder"
 				continue
 			if titre[i]=="Condition": 
 				self.COL_COND = i
+				print i,  "Condition"
 				continue
 			if titre[i]=="Jobrun Name": 
 				self.COL_JOBRUNNAME = i
+				print i,  "Jobrun Name"
 				continue
 			if titre[i]=="File Name": 
 				self.COL_FILENAME = i
+				print i,  "File Name"
 				continue
 			if titre[i]=="Frame Time": 
 				self.COL_FRAMETIME = i
-				continue
-			if titre[i]=="numero de boite": 
-				self.COL_NUMEROBOITE = i
+				print i,  "Frame Time"
 				continue
 			if titre[i]=="Genes": 
 				self.COL_GENES = i
-				continue
+				print i,  "Genes"
+				continue			
 			if titre[i]=="Well": 
 				self.COL_WELL = i
-				continue
+				print i,  "Well"
+				continue			
 			if titre[i]=="Well Index": 
 				self.COL_WELLINDEX = i
+				print i,  "Well Index"
 				continue
 			if titre[i]=="PointLoop Index": 
 				self.COL_POINTLOOPINDEX = i
+				print i,  "PointLoop Index"
 				continue
 			if titre[i]=="WellLoop Index": 
 				self.COL_WELLLOOPINDEX = i
+				print i,  "WellLoop Index"
 				continue
 			if titre[i]=="X": 
 				self.COL_X = i
+				print i,  "X"
 				continue
 			if titre[i]=="Y": 
 				self.COL_Y = i
+				print i,  "Y"
 				continue
 			if titre[i]=="Z1": 
 				self.COL_Z1 = i
+				print i,  "Z1"
 				continue
 			if titre[i]=="Frame Index": 
 				self.COL_FRAMEINDEX = i
+				print i,  "Frame Index"
 				continue
+			if titre[i]=="TimeLapse Index": 
+				self.COL_TLINDEX = i
+				print i,  "TimeLapse Index"
+				continue
+			if titre[i]=="numerodeboite": 
+				self.COL_NUMEROBOITE = i
+				print i,  "numerodeboite"
+				continue			
 			if titre[i]=="plateRow": 
 				self.COL_LIGNE = i
+				print i,  "plateRow"
 				continue
 			if titre[i]=="plateColumn": 
 				self.COL_COL = i
-				continue
-			if titre[i]=="UIDs": 
+				print i,  "plateColumn"
+				continue				
+			if titre[i].split("\r")[0]=="UIDs": 
 				self.COL_UIDS = i
+				print i,  "UIDs"
 				continue
 
-		else : return "erreur dans les colonnes"
+		else : return "erreur dans les colonnes "+str(i)
 
 		return "ok"
 
@@ -264,7 +290,7 @@ class Data(object):
 #   TEST DE LA CLASSE  
 
 if __name__ == "__main__" :
-	data=Data("/Users/lisalamasse/Dropbox/Macros_Lisa/ProjetVRD_Tools")
+	data=Data("/Volumes/BACKUP-MS/Metasensors HCS/Bacillus_Ibidi_96well_angio1")
 	print "dicoG", data.dicoG
 	print "----- fin dicoG -----"
 	print data.dicoC
@@ -275,7 +301,7 @@ if __name__ == "__main__" :
 	print "----- fin dicoNumB -----"
 	print data.dicoNomB
 	print "----- fin dicoNomB -----"
-	print data.dicoLignes
+	print data.getdicolignes("20130410_183703_374")
 	
 
 	
